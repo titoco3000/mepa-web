@@ -32,10 +32,13 @@
 .column:first-child {
 	border-left: none;
 }
-
 .column > header {
 	font-size: 0.3em;
 	padding: 1em;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .columnValueHolder {
@@ -47,4 +50,12 @@
 
 .columnValueHolder:focus-within {
 	outline: 1px solid rgba(255, 255, 255, 0.403);
+}
+
+.downloadButton {
+	background-color: transparent;
+	border: none;
+}
+.downloadButton:hover {
+	transform: scale(1.1);
 }

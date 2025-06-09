@@ -6,6 +6,7 @@ import { javascript } from "@codemirror/lang-javascript";
 import { keymap } from "@codemirror/view";
 import { indentWithTab } from "@codemirror/commands";
 import { EditorView, lineNumbers } from "@codemirror/view";
+import { IoMdDownload } from "react-icons/io";
 
 const MepaCompilerUI = () => {
 	const { compileCode, loading, error: initError } = useMepaCompiler();
@@ -66,6 +67,18 @@ const MepaCompilerUI = () => {
 		);
 	}
 
+	const downloadFile = (content, filename) => {
+		const blob = new Blob([content], { type: "text/plain" });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement("a");
+		link.href = url;
+		link.download = filename;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+		URL.revokeObjectURL(url);
+	};
+
 	const editorExtensions = [
 		javascript(),
 		keymap.of([indentWithTab]),
@@ -94,6 +107,12 @@ const MepaCompilerUI = () => {
 				<div className="column">
 					<header>
 						<h1>Editor IPT</h1>
+						<button
+							className="downloadButton"
+							onClick={() => downloadFile(iptCode, "code.ipt")}
+						>
+							<IoMdDownload />
+						</button>
 					</header>
 					<CodeMirror
 						value={iptCode}
@@ -110,6 +129,14 @@ const MepaCompilerUI = () => {
 				<div className="column">
 					<header>
 						<h1>MEPA</h1>
+						<button
+							className="downloadButton"
+							onClick={() =>
+								downloadFile(mepaOutput, "code.mepa")
+							}
+						>
+							<IoMdDownload />
+						</button>
 					</header>
 					<CodeMirror
 						height="100%"
@@ -123,6 +150,14 @@ const MepaCompilerUI = () => {
 				<div className="column">
 					<header>
 						<h1>MEPA otimizado</h1>
+						<button
+							className="downloadButton"
+							onClick={() =>
+								downloadFile(optimizedOutput, "otimizado.mepa")
+							}
+						>
+							<IoMdDownload />
+						</button>
 					</header>
 					<CodeMirror
 						height="100%"
