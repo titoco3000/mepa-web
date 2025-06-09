@@ -12,7 +12,7 @@ const MepaCompilerUI = () => {
 	const { compileCode, loading, error: initError } = useMepaCompiler();
 
 	const [iptCode, setIptCode] = useState(
-		"fn main(){\n  int x[8];\n  read(x[3]);\n  print(x[3]);\n}"
+		"// Exemplo de programa em ipt.\n// Experimente usar funções\n// (declaradas com fn, com um return no final),\n// ponteiros (com o tipo ptr) e arrays!\nfn main(){\n  int n, x[8];\n  n = 3;\n  read(x[n]);\n  print(x[n]);\n}"
 	);
 	const [mepaOutput, setMepaOutput] = useState("");
 	const [optimizedOutput, setOptimizedOutput] = useState("");
