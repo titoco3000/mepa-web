@@ -1,0 +1,22 @@
+{
+  "name": "mepa-rs",
+  "type": "module",
+  "collaborators": [
+    "Tito Guidotti <tito.guidotti@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/titoco3000/mepa-rs"
+  },
+  "files": [
+    "mepa_rs_bg.wasm",
+    "mepa_rs.js",
+    "mepa_rs.d.ts"
+  ],
+  "main": "mepa_rs.js",
+  "types": "mepa_rs.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

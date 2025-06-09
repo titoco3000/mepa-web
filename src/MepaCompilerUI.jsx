@@ -84,9 +84,9 @@ const MepaCompilerUI = () => {
 		keymap.of([indentWithTab]),
 		EditorView.lineWrapping,
 		EditorView.editable.of(true),
-		lineNumbers({
-			formatNumber: (n) => (n - 1).toString(), // Start numbering at 0
-		}),
+		// lineNumbers({
+		// 	formatNumber: (n) => (n).toString(), // Start numbering at 0
+		// }),
 	];
 
 	const readOnlyExtensions = [
