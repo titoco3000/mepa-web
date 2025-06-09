@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
 import mepaIcon from "./assets/mepa-icon.png";
-// Adjust the path to your custom hook
 import useMepaCompiler from "./useMepaCompiler";
+import CodeMirror from "@uiw/react-codemirror";
+import { javascript } from "@codemirror/lang-javascript";
+import { keymap } from "@codemirror/view";
+import { indentWithTab } from "@codemirror/commands";
+import { EditorView, lineNumbers } from "@codemirror/view";
 
 const MepaCompilerUI = () => {
-	// 1. Initialize the Wasm compiler hook
 	const { compileCode, loading, error: initError } = useMepaCompiler();
 
 	const [iptCode, setIptCode] = useState(
-		"fn  main(){\n    int x[8];\n    read(x[3]);\n    print(x[3]);\n}"
+		"fn main(){\n  int x[8];\n  read(x[3]);\n  print(x[3]);\n}"
 	);
 	const [mepaOutput, setMepaOutput] = useState("");
 	const [optimizedOutput, setOptimizedOutput] = useState("");
 
-	// 3. Debounce effect for compilation
 	useEffect(() => {
-		// Don't do anything if the compiler is not ready or the input is empty
 		if (!compileCode || !iptCode.trim()) {
 			setMepaOutput("");
 			setOptimizedOutput("");
@@ -49,15 +50,10 @@ const MepaCompilerUI = () => {
 				setMepaOutput("Error: Failed to parse compiler output.");
 				setOptimizedOutput("Error: Failed to parse compiler output.");
 			}
-		}, 1000); // 2-second delay
+		}, 1000);
+		return () => clearTimeout(handler);
+	}, [iptCode, compileCode]);
 
-		// Cleanup function: clear the timer if the user types again
-		return () => {
-			clearTimeout(handler);
-		};
-	}, [iptCode, compileCode]); // Rerun this effect if input or compiler changes
-
-	// Handle Wasm module loading and initialization errors
 	if (loading) {
 		return <div>Initializing WebAssembly Compiler...</div>;
 	}
@@ -70,6 +66,25 @@ const MepaCompilerUI = () => {
 		);
 	}
 
+	const editorExtensions = [
+		javascript(),
+		keymap.of([indentWithTab]),
+		EditorView.lineWrapping,
+		EditorView.editable.of(true),
+		lineNumbers({
+			formatNumber: (n) => (n - 1).toString(), // Start numbering at 0
+		}),
+	];
+
+	const readOnlyExtensions = [
+		javascript(),
+		EditorView.lineWrapping,
+		EditorView.editable.of(false),
+		lineNumbers({
+			formatNumber: (n) => (n - 1).toString(),
+		}),
+	];
+
 	return (
 		<div className="container">
 			<header className="mainHeader">
@@ -80,32 +95,42 @@ const MepaCompilerUI = () => {
 					<header>
 						<h1>Editor IPT</h1>
 					</header>
-					<textarea
-						className="columnValueHolder"
+					<CodeMirror
 						value={iptCode}
-						onChange={(e) => setIptCode(e.target.value)}
-						placeholder="Código IPT aqui"
-						spellCheck="false"
+						height="100%"
+						extensions={editorExtensions}
+						onChange={(value) => setIptCode(value)}
+						theme="dark"
+						basicSetup={{
+							closeBrackets: true, // auto-closing brackets
+						}}
+						className="columnValueHolder"
 					/>
 				</div>
 				<div className="column">
 					<header>
 						<h1>MEPA</h1>
 					</header>
-					<textarea
-						className="columnValueHolder"
+					<CodeMirror
+						height="100%"
 						value={mepaOutput}
-						readOnly
+						extensions={readOnlyExtensions}
+						theme="dark"
+						editable={false}
+						className="columnValueHolder"
 					/>
 				</div>
 				<div className="column">
 					<header>
 						<h1>MEPA otimizado</h1>
 					</header>
-					<textarea
-						className="columnValueHolder"
+					<CodeMirror
+						height="100%"
 						value={optimizedOutput}
-						readOnly
+						extensions={readOnlyExtensions}
+						theme="dark"
+						editable={false}
+						className="columnValueHolder"
 					/>
 				</div>
 			</div>

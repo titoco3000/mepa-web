@@ -43,8 +43,6 @@
 	resize: none;
 	width: 100%;
 	box-sizing: border-box;
-	border: none;
-	background-color: rgba(255, 255, 255, 0.058);
 }
 
 .columnValueHolder:focus-within {
