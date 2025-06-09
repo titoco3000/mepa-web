@@ -1,0 +1,52 @@
+.container {
+	height: 100%;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+}
+.mainHeader {
+	width: 100%;
+	font-size: 0.3em;
+	padding: 1em;
+}
+.main {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: row;
+}
+
+.mepaIcon {
+	height: 5em;
+	filter: brightness(0) saturate(100%) invert(18%) sepia(89%) saturate(7409%)
+		hue-rotate(5deg) brightness(93%) contrast(127%);
+}
+
+.column {
+	width: 33.3333%;
+	display: flex;
+	flex-direction: column;
+	border: 2px solid rgba(255, 255, 255, 0.189);
+	border-right: none;
+}
+
+.column:first-child {
+	border-left: none;
+}
+
+.column > header {
+	font-size: 0.3em;
+	padding: 1em;
+}
+
+.columnValueHolder {
+	flex-grow: 1;
+	resize: none;
+	width: 100%;
+	box-sizing: border-box;
+	border: none;
+	background-color: rgba(255, 255, 255, 0.058);
+}
+
+.columnValueHolder:focus-within {
+	outline: 1px solid rgba(255, 255, 255, 0.403);
+}
