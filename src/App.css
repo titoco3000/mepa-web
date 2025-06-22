@@ -13,6 +13,8 @@
 	flex-grow: 1;
 	display: flex;
 	flex-direction: row;
+	flex-shrink: 1;
+	min-height: 0;
 }
 
 .mepaIcon {
@@ -27,6 +29,7 @@
 	flex-direction: column;
 	border: 2px solid rgba(255, 255, 255, 0.189);
 	border-right: none;
+	/* background-color: #282c34; */
 }
 
 .column:first-child {
@@ -39,23 +42,174 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	background-color: rgba(0, 0, 0, 0.145);
 }
 
 .columnValueHolder {
 	flex-grow: 1;
 	resize: none;
 	width: 100%;
+	/* height: 100%; */
 	box-sizing: border-box;
+}
+
+.columnValueHolder,
+.columnValueHolder .cm-scroller {
+	overflow: hidden !important;
 }
 
 .columnValueHolder:focus-within {
 	outline: 1px solid rgba(255, 255, 255, 0.403);
 }
 
-.downloadButton {
+.codeBoxControls > button {
 	background-color: transparent;
 	border: none;
+	transition: transform 0.1s;
 }
-.downloadButton:hover {
+.codeBoxControls > button:hover {
 	transform: scale(1.1);
+}
+
+.CodeContainer {
+	flex-grow: 1;
+	overflow: hidden auto;
+}
+.ScrollBox {
+	min-height: 100%;
+	display: flex;
+}
+
+.MepaMachine {
+	background-color: #282c34;
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+.MepaMachineCodeViewer {
+	width: 50%;
+}
+.MepaMachineCodeViewer .cm-scroller > * {
+	/* overflow: auto hidden !important; */
+	pointer-events: none;
+	user-select: none;
+}
+.MepaMachineColumn {
+	flex-grow: 1;
+	flex-shrink: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.MepaMachineInputForm {
+	display: flex;
+	justify-content: space-around;
+	margin: 0.5em;
+	align-items: center;
+}
+.MepaMachineFlowButtons > * {
+	margin: 2px;
+}
+.MepaMachineNumberInput {
+	display: flex;
+	width: 100%;
+	background-color: rgb(59, 59, 59);
+	overflow: hidden;
+	max-width: 5em;
+	border-radius: 10px;
+	transition: opacity 0.2s;
+}
+.MepaMachineDisabledInput {
+	opacity: 0.2;
+	pointer-events: none;
+}
+
+.MepaMachineNumberInput input {
+	flex-grow: 1;
+	min-width: 0;
+	border: none;
+	padding: 0.5em;
+	box-sizing: border-box;
+	background: none;
+	outline: none;
+	padding-right: 0;
+}
+
+.MepaMachineNumberInput button {
+	flex-shrink: 0;
+	padding: 0.1em;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.MepaMachineData {
+	flex-grow: 1;
+	flex-shrink: 1;
+	min-width: 0;
+	margin-top: 0.1em;
+	overflow: auto;
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-start;
+}
+
+.MepaMachineDataColumn {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.MepaMachineDataTable {
+	border: 2px solid rgba(255, 255, 255, 0.205);
+	border-radius: 3px;
+	min-width: 3em;
+}
+.MepaMachineDataTable > * {
+	text-align: center;
+	min-width: 3em;
+}
+.MepaMachineDataTable > *:not(:last-child) {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.205);
+}
+
+.MepaMachineDataTable > *:first-child {
+	border-bottom: 2px solid rgba(255, 255, 255, 0.205);
+}
+
+.MepaMachineOutputBox {
+	margin: 0.6em;
+	background-color: #101010;
+	padding: 0.5em;
+	border-radius: 5px;
+	font-family: "Courier New", Courier, monospace;
+	box-shadow: inset 0 0 10px #000;
+	white-space: pre-wrap;
+	font-size: 0.9em;
+}
+
+.MepaMachineOutputBox h3 {
+	font-size: 0.8em;
+	margin-top: 0;
+	border-bottom: 1px solid #333;
+	padding-bottom: 0.3em;
+	margin-bottom: 0.5em;
+}
+
+.MepaMachine .cm-current-line {
+	position: relative;
+}
+.MepaMachine .cm-current-line::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: rgba(255, 255, 0, 0.2); /* light yellow overlay */
+	pointer-events: none;
+	z-index: -1; /* keep it under text */
+}
+
+.MepaMachineOutOfBoundsMemory {
+	color: rgba(255, 255, 255, 0.3);
 }
