@@ -1,4 +1,4 @@
-import MepaCompilerUI from "./MepaCompilerUI";
+import MepaCompilerUI from "./components/MepaCompilerUI";
 import "./App.css";
 
 function App() {

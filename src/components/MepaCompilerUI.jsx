@@ -1,18 +1,13 @@
 import { useState, useEffect } from "react";
-import mepaIcon from "./assets/mepa-icon.png";
-import useMepaPack from "./useMepaPack";
-import CodeEditor from "./components/CodeEditor";
+import mepaIcon from "../assets/mepa-icon.png";
+import useMepaPack from "../useMepaPack";
+import CodeEditor from "./CodeEditor";
 
 const MepaCompilerUI = () => {
-	const {
-		compileCode,
-		loading,
-		error: initError,
-		MepaMachine,
-	} = useMepaPack();
+	const { compileCode, loading, error: initError } = useMepaPack();
 
 	const [iptCode, setIptCode] = useState(
-		"// Exemplo de programa em ipt.\n// Experimente usar funções\n// (declaradas com fn, com um return no final),\n// ponteiros (com o tipo ptr) e arrays!\nfn main(){\n  int n, x[8];\n  n = 3;\n  read(x[n]);\n  print(x[n]);\n}"
+		"// Exemplo de programa em ipt\nfn main(){\n  int x[3];\n  ptr h;\n  h = x;\n  read(h[0]);\n  print(*x);\n  return 0;\n}"
 	);
 	const [mepaOutput, setMepaOutput] = useState("");
 	const [optimizedOutput, setOptimizedOutput] = useState("");
