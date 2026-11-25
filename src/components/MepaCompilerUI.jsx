@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import mepaIcon from "../assets/mepa-icon.png";
 import useMepaPack from "../useMepaPack";
 import CodeEditor from "./CodeEditor";
+import AboutModal from "./AboutModal";
+import { Info } from "lucide-react";
 
 const MepaCompilerUI = () => {
 	const { compileCode, loading, error: initError } = useMepaPack();
@@ -11,6 +13,7 @@ const MepaCompilerUI = () => {
 	);
 	const [mepaOutput, setMepaOutput] = useState("");
 	const [optimizedOutput, setOptimizedOutput] = useState("");
+	const [showAbout, setShowAbout] = useState(false);
 
 	useEffect(() => {
 		if (!compileCode || !iptCode.trim()) {
@@ -66,7 +69,16 @@ const MepaCompilerUI = () => {
 		<div className="container">
 			<header className="mainHeader">
 				<img src={mepaIcon} alt="mepa icon" className="mepaIcon" />
+				<button
+					className="aboutButton"
+					title="sobre"
+					aria-label="sobre"
+					onClick={() => setShowAbout(true)}
+				>
+					<Info size={20} />
+				</button>
 			</header>
+			{showAbout && <AboutModal onClose={() => setShowAbout(false)} />}
 			<div className="main">
 				<CodeEditor
 					titulo="Editor IPT"
